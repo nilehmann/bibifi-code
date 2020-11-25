@@ -159,8 +159,10 @@ library
                 TypeSynonymInstances
                 FlexibleInstances
 
-    build-depends: base                          >= 4          && < 5
-                 --, binah
+    build-depends: binah
+                  -- base                          >= 4          && < 5
+                 , liquid-base
+                 , liquidhaskell
 --                 , yesod-platform              
                  , yesod                         
                  , yesod-core                    
