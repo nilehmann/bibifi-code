@@ -166,3 +166,5 @@ surveyForm render formM = SurveyFormData
         f :: (SurveyFormData -> Maybe a) -> Maybe (Maybe a)
         f g = fmap (g) formM
 
+
+{-@ LIQUID "--compile-spec" @-}

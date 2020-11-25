@@ -156,3 +156,5 @@ getThanksR cUrl = runLHandler $ do
             _ ->
                 notFound
 
+
+{-@ LIQUID "--compile-spec" @-}

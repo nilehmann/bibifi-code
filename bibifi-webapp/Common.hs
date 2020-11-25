@@ -202,3 +202,5 @@ dash = [shamlet|&#8212;|]
 
 -- emailLink :: Widget
 emailLink = [shamlet|<script>document.write( atob('PGEgaHJlZj0ibWFpbHRvOmluZm9AYnVpbGRpdGJyZWFraXQub3JnIj5pbmZvQGJ1aWxkaXRicmVha2l0Lm9yZzwvYT4='));</script>|]
+
+{-@ LIQUID "--compile-spec" @-}

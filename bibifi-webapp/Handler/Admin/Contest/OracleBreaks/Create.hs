@@ -85,3 +85,5 @@ postAdminContestOracleBreaksCreateR url = runLHandler $ do
                 FormMissing ->
                     generateHtml url widget enctype contest
 
+
+{-@ LIQUID "--compile-spec" @-}

@@ -115,3 +115,5 @@ getParticipationBuildersCodeR tcId = runLHandler $
                 }
             |]
             clickableDiv
+
+{-@ LIQUID "--compile-spec" @-}

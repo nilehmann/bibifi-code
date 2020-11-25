@@ -129,3 +129,5 @@ getAdminContestTestsR url = runLHandler $ do
                                 ^{rows}
                     |]
 
+
+{-@ LIQUID "--compile-spec" @-}

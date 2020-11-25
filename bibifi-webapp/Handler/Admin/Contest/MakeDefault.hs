@@ -70,3 +70,5 @@ postMakeDefaultR url' = runLHandler $ do
         FormMissing ->
             generateHtml url' widget enctype []
 
+
+{-@ LIQUID "--compile-spec" @-}

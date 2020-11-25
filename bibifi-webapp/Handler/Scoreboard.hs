@@ -212,3 +212,5 @@ getScoreBreakdownR tcId = runLHandler $ do
                             |]
                         Just submission ->
                             Widgets.buildSubmission submission cId True
+
+{-@ LIQUID "--compile-spec" @-}

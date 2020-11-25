@@ -281,3 +281,5 @@ postAdminContestDistributeJudgementsR url = runLHandler $ do
         zipR _ [] = []
         zipR (cH:cT) (lH:lT) = (cH,lH):zipR cT lT
 
+
+{-@ LIQUID "--compile-spec" @-}

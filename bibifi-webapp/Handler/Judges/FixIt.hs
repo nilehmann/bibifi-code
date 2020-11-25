@@ -155,3 +155,5 @@ postJudgesFixItR url jId = runLHandler $
                                     Successfully submitted judgement!
                         |]
                         redirect $ JudgesR url
+
+{-@ LIQUID "--compile-spec" @-}

@@ -284,3 +284,5 @@ displayBreakSubmissionsTable contest viewer submissions = do
                     --         |]
                     --     _ ->
                     --         return dash
+
+{-@ LIQUID "--compile-spec" @-}

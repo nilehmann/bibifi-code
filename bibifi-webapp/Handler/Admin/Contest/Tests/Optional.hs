@@ -71,3 +71,5 @@ postAdminContestTestsOptionalR url testId = runLHandler $ Admin.layoutContest ur
             generateHtml url testId contest form enctype
 
 
+
+{-@ LIQUID "--compile-spec" @-}

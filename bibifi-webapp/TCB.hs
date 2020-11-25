@@ -82,3 +82,5 @@ raiseJudgeLabel =
 -- instance MonadTrans (LMonadT (DCLabel Principal)) where
 --     -- lift :: forall m a. LMonad m => m a -> LMonadT (DCLabel Principal) m a
 --     lift = LMonadT . lift
+
+{-@ LIQUID "--compile-spec" @-}

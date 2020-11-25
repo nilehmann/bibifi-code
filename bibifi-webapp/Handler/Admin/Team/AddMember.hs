@@ -91,3 +91,5 @@ postAdminTeamAddMemberR teamId = runLHandler $ Admin.layout Admin.Teams $ do
                         redirect $ AdminTeamR teamId
             
 
+
+{-@ LIQUID "--compile-spec" @-}

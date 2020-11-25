@@ -12,3 +12,5 @@ development =
 
 production :: Bool
 production = not development
+
+{-@ LIQUID "--compile-spec" @-}

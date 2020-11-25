@@ -100,3 +100,5 @@ postAdminContestOracleBreaksEditR bosId = runLHandler $ do
         _ ->
             notFound
     
+
+{-@ LIQUID "--compile-spec" @-}

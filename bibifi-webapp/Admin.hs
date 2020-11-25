@@ -82,3 +82,5 @@ userNotFound = do
     [whamlet|
         User does not exist.
     |]
+
+{-@ LIQUID "--compile-spec" @-}

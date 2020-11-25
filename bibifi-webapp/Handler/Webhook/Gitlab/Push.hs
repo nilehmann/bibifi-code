@@ -180,3 +180,5 @@ instance J.FromJSON BreakMsg where
         BreakMsg <$> o .: "type"
                  <*> o .: "target_team"
                  <*> pure (J.Object o)
+
+{-@ LIQUID "--compile-spec" @-}

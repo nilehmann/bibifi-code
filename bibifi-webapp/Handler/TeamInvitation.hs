@@ -127,3 +127,5 @@ postTeamInvitationR invitation = runLHandler $ do
         FormMissing ->
             generateHtmlHelper widget enctype [] invitation
         
+
+{-@ LIQUID "--compile-spec" @-}

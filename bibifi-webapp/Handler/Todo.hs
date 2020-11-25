@@ -6,3 +6,5 @@ getTodoR :: Handler Html
 getTodoR = runLHandler $ defaultLayout [whamlet|
 This page is currently under construction. 
 |]
+
+{-@ LIQUID "--compile-spec" @-}

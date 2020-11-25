@@ -133,9 +133,11 @@ library
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
-        ghc-options:   -Wall -O0 -fno-warn-name-shadowing
+        ghc-options:   -Wall -O0 -fno-warn-name-shadowing -fplugin=LiquidHaskell
+        --ghc-options:   -Wall -O0 -fno-warn-name-shadowing
     else
-        ghc-options:   -Wall -O2 -fno-warn-name-shadowing
+        ghc-options:   -Wall -O2 -fno-warn-name-shadowing -fplugin=LiquidHaskell
+        --ghc-options:   -Wall -O0 -fno-warn-name-shadowing
 
     extensions: TemplateHaskell
                 QuasiQuotes

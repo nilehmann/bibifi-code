@@ -33,3 +33,5 @@ combineStylesheets = combineStylesheets' development combineSettings
 
 combineScripts :: Name -> [Route Static] -> Q Exp
 combineScripts = combineScripts' development combineSettings
+
+{-@ LIQUID "--compile-spec" @-}

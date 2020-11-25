@@ -289,3 +289,5 @@ unregisterForm = renderBootstrap3 BootstrapBasicForm $ UnregisterForm
     <$> pure ()
 
 
+
+{-@ LIQUID "--compile-spec" @-}

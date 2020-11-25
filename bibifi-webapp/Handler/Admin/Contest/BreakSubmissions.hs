@@ -34,3 +34,5 @@ getAdminContestBreakSubmissionsR url = runLHandler $ Admin.layoutContest url $ \
 
             handlerToWidget $ runDB $ [lsql| select BreakSubmission.*, Team.name from BreakSubmission inner join TeamContest on BreakSubmission.team == TeamContest.id inner join Team on TeamContest.team == Team.id where TeamContest.contest == #{contestId} order by BreakSubmission.id desc |]
 
+
+{-@ LIQUID "--compile-spec" @-}

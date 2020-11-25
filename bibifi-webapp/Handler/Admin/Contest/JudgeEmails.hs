@@ -66,3 +66,5 @@ getAdminContestJudgeEmailsR url = runLHandler $ do
                     <pre .pre-scrollable>
                         #{profEmails}
                 |]
+
+{-@ LIQUID "--compile-spec" @-}

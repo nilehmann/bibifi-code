@@ -99,3 +99,5 @@ instance ToLWidget (DCLabel Principal) App (HtmlUrl (Route App)) where
 whamlet' = QuasiQuoter { quoteExp = \s -> quoteExp Yesod.whamlet s >>= return . (`SigE` (ConT ''Widget)) }
 whamlet = QuasiQuoter { quoteExp = \s -> quoteExp LMonad.Yesod.whamlet s >>= return . (`SigE` (ConT ''LWidget)) }
 hamlet = QuasiQuoter { quoteExp = \s -> quoteExp Yesod.hamlet s >>= return . (`SigE` (AppT (ConT ''HtmlUrl) (AppT (ConT ''Route) (ConT ''App)))) }
+
+{-@ LIQUID "--compile-spec" @-}

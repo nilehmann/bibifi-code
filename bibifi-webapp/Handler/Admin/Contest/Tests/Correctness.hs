@@ -70,3 +70,5 @@ postAdminContestTestsCorrectnessR url testId = runLHandler $ Admin.layoutContest
 
 
 -- JP: Delete form? Need to be careful due to propogation... Check if contest has started???
+
+{-@ LIQUID "--compile-spec" @-}

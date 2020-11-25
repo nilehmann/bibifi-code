@@ -45,3 +45,5 @@ setConfig key' value =
             Just (Entity id' _) ->
                 replace id' new
             
+
+{-@ LIQUID "--compile-spec" @-}

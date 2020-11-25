@@ -45,3 +45,5 @@ checkCourseraContest contestId userId = do
                             else
                                 CourseraStatusNotEnrolled
 
+
+{-@ LIQUID "--compile-spec" @-}

@@ -72,3 +72,5 @@ getAdminContestOracleBreaksR url = runLHandler $ do
                         |]
                         clickableDiv
 
+
+{-@ LIQUID "--compile-spec" @-}

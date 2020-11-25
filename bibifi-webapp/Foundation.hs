@@ -812,3 +812,5 @@ instance Label l => GeneralPersist App (LMonadT l (HandlerT App IO)) where
     runDB' = LP.runDB
 
 instance Label l => GeneralPersistSql App (LMonadT l (HandlerT App IO))
+
+{-@ LIQUID "--compile-spec" @-}

@@ -37,3 +37,5 @@ getAdminContestBuildSubmissionsR url = runLHandler $ Admin.layoutContest url $ \
             let base = [BuildSubmissionTeam <-. teams]
 
             return base
+
+{-@ LIQUID "--compile-spec" @-}

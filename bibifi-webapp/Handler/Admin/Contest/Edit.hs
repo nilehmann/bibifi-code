@@ -76,3 +76,5 @@ getContest url = handlerToWidget $ do
             notFound
         Just contest ->
             return contest
+
+{-@ LIQUID "--compile-spec" @-}

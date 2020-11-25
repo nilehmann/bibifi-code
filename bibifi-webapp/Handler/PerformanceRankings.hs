@@ -138,3 +138,5 @@ getSpecificPerformanceRankingsR url ptId = runLHandler $ do
                                 <tbody>
                                     ^{rows}
                         |]
+
+{-@ LIQUID "--compile-spec" @-}

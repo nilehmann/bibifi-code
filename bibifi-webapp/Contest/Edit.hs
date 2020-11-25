@@ -77,3 +77,5 @@ validateContest FormData{..} contestIdM = runExceptT $ do
         throwE "Break-it end date must be after the start date."
 
     return ()
+
+{-@ LIQUID "--compile-spec" @-}

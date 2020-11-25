@@ -62,3 +62,5 @@ instance RateLimit RateLimiter RateLimitLog where
         let filters' = deleteFilters action in
         (RateLimitLogLimiter ==. getLimiter action):filters'
 
+
+{-@ LIQUID "--compile-spec" @-}

@@ -55,3 +55,5 @@ getAboutR = defaultLayout $ do
                         <img id="#{mc2}" src="@{StaticR img_mc2_png}">
     |]
 
+
+{-@ LIQUID "--compile-spec" @-}

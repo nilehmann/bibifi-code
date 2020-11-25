@@ -27,3 +27,5 @@ getAdminTeamsR = runLHandler $ Admin.layout Admin.Teams $ do
                 <a href="@{AdminTeamR tId}" .list-group-item>
                     #{teamName t}
             |]
+
+{-@ LIQUID "--compile-spec" @-}

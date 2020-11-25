@@ -114,3 +114,5 @@ buildersCode contestId direction tcId =
         ) res
     --runDB $ rawSql "SELECT ?? FROM \"cache_builders_code\" WHERE (\"contest_id\"=?) ORDER BY ?" [toPersistValue contestId, direction]
 
+
+{-@ LIQUID "--compile-spec" @-}

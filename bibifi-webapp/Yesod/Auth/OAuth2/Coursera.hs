@@ -108,3 +108,5 @@ instance FromJSON Enrollment where
 --         handler e =
 --             let err = Text.pack $ show e in
 --             return $ Left $ OAuth2Error (Left err) (Just err) Nothing
+
+{-@ LIQUID "--compile-spec" @-}

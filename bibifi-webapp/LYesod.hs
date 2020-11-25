@@ -75,3 +75,5 @@ runFormPost = lLift . Yesod.runFormPost
 -- tempRunDB = lLift . Yesod.runDB
 -- setMessage = lLift . Yesod.setMessage
 -- redirectUltDest = lLift . Yesod.redirectUltDest
+
+{-@ LIQUID "--compile-spec" @-}

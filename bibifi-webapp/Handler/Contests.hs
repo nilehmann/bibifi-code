@@ -44,3 +44,5 @@ getContestsR = runLHandler $ do
                     ^{ham}
         |]
 
+
+{-@ LIQUID "--compile-spec" @-}

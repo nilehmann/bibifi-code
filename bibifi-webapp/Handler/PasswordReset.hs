@@ -62,3 +62,5 @@ postPasswordResetR code = runLHandler $ do
                     generateHtml code widget enctype [err]
     
         
+
+{-@ LIQUID "--compile-spec" @-}

@@ -112,3 +112,5 @@ resetPassword resetCode account password = do
             -- TODO: log runtime error??
             error "User.resetPassword: unreachable"
 
+
+{-@ LIQUID "--compile-spec" @-}

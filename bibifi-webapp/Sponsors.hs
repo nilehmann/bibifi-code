@@ -163,3 +163,5 @@ astech = do
     --                 <img id="#{att}" src="@{StaticR img_att_jpg}">
     --             <a href="http://cyberpointllc.com/">
     --                 <img id="#{cyberpoint}" src="@{StaticR img_cyberpoint_png}">*/
+
+{-@ LIQUID "--compile-spec" @-}

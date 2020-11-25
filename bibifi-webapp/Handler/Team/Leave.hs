@@ -144,3 +144,5 @@ BIBIFI organizers
 
 
 
+
+{-@ LIQUID "--compile-spec" @-}

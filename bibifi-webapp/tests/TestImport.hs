@@ -24,3 +24,5 @@ runDB :: SqlPersist (NoLoggingT (ResourceT IO)) a -> YesodExample App a
 runDB query = do
     pool <- fmap connPool getTestYesod
     liftIO $ runResourceT $ runNoLoggingT $ runSqlPool query pool
+
+{-@ LIQUID "--compile-spec" @-}

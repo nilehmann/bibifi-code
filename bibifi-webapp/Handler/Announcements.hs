@@ -141,3 +141,5 @@ getSpecificAnnouncementsR :: Text -> Handler Html
 getSpecificAnnouncementsR contestId = runLHandler $
     getAnnouncements (Just contestId)
 
+
+{-@ LIQUID "--compile-spec" @-}

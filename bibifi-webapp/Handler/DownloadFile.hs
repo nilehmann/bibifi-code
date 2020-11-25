@@ -30,3 +30,5 @@ getDownloadFileR fileId = runLHandler $ do
             -- Deliver the file.
             addHeader "Content-Disposition" $ Text.concat [ "attachment; filename=\"", name, "\""]
             sendResponse ( Text.encodeUtf8 contentType, toContent content)
+
+{-@ LIQUID "--compile-spec" @-}

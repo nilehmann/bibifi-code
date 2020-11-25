@@ -10,3 +10,5 @@ screen_md_min = 992
 
 screen_lg_min :: PixelSize
 screen_lg_min = 1200
+
+{-@ LIQUID "--compile-spec" @-}

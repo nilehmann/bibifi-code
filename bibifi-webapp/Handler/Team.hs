@@ -38,3 +38,5 @@ getTeamR tId = redirect (TeamInformationR tId)
 -- postTeamR :: TeamId -> Handler Html
 -- postTeamR tId = defaultLayout
 --     [whamlet|TODO|]
+
+{-@ LIQUID "--compile-spec" @-}

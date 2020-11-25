@@ -36,3 +36,5 @@ getParticipationDownloadBuilderR dlId tcId = runLHandler $ do
     where
         name = Text.pack $ show (keyToInt tcId) <> ".tar.gz"
         contentType = "application/gzip"
+
+{-@ LIQUID "--compile-spec" @-}

@@ -75,3 +75,5 @@ postProfileAccountEditR = runLHandler $ do
             |]
             generateHtml widget enctype []
         
+
+{-@ LIQUID "--compile-spec" @-}

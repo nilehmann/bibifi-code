@@ -46,3 +46,5 @@ getTeamInformationR tId = runLHandler $ Team.layout Team.Information tId $ \_uId
                             #{membersH}
         |]
 
+
+{-@ LIQUID "--compile-spec" @-}

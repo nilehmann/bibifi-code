@@ -14,3 +14,5 @@ getFeedbackR = runLHandler $ defaultLayout $ lLift $ do
                 <p>
                     Do you have any feedback about the contest? Have you found a bug or vulnerability in the contest's infrastructure? Let us know! Email us at #{emailLink}.
     |]
+
+{-@ LIQUID "--compile-spec" @-}

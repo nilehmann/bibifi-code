@@ -24,3 +24,5 @@ getContestParticipationR cUrl = runLHandler $ do
                     |]
                     redirect $ ContestSpecificSignupR $ contestUrl contest
     
+
+{-@ LIQUID "--compile-spec" @-}

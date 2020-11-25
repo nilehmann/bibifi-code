@@ -5,3 +5,5 @@ import Import
 getAdminR :: Handler Html
 getAdminR =
     redirect AdminContestsR
+
+{-@ LIQUID "--compile-spec" @-}

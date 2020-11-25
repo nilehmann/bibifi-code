@@ -148,3 +148,5 @@ postAdminContestJudgementsAssignFixR url fsId = runLHandler $ do
                                     Successfully assigned judge!
                         |]
                         redirect $ AdminContestJudgementsR url
+
+{-@ LIQUID "--compile-spec" @-}

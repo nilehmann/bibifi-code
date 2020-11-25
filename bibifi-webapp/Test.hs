@@ -48,3 +48,5 @@ performanceTestForm def = renderBootstrap3 BootstrapBasicForm $ PerformanceFormD
                 Left ("Not valid JSON." :: Text)
             Just (_ :: Aeson.Value)  ->
                 Right t
+
+{-@ LIQUID "--compile-spec" @-}

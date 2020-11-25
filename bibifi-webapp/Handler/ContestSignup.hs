@@ -189,3 +189,5 @@ getContestSignupR = runLHandler $ do
                 setTitle $ toHtml title
                 contestTemplate contest "Contest Sign Up" (\_ -> return ())
     
+
+{-@ LIQUID "--compile-spec" @-}

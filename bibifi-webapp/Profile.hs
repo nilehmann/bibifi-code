@@ -45,3 +45,5 @@ layout page content =
         |]
 
 
+
+{-@ LIQUID "--compile-spec" @-}

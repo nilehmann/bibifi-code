@@ -36,3 +36,5 @@ homeSpecs =
             statusIs 200
             users <- runDB $ selectList ([] :: [Filter User]) []
             assertEqual "user table empty" 0 $ L.length users
+
+{-@ LIQUID "--compile-spec" @-}

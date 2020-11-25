@@ -91,3 +91,5 @@ getSupportR = runLHandler $ defaultLayout $ lLift $ do
                 <p>
                     Still have questions or need help? Email us at #{emailLink}.
     |]
+
+{-@ LIQUID "--compile-spec" @-}

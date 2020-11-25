@@ -64,3 +64,5 @@ withdrawBreakSubmission bsId =
                 , BreakSubmissionWithdrawn =. True
                 ]
                 -- JP: Update status too?
+
+{-@ LIQUID "--compile-spec" @-}

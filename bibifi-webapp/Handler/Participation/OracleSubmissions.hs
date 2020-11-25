@@ -113,3 +113,5 @@ getParticipationOracleSubmissionR tcId osId = runLHandler $ do
                             ^{output}
                         ^{refresh}
                     |] :: LWidget
+
+{-@ LIQUID "--compile-spec" @-}

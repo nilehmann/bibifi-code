@@ -96,3 +96,5 @@ instance ContestSubmission FixSubmissionId where
         return $ maybe [] (\bs -> [fixSubmissionTeam bs]) bsM
         -- TODO: add teams that made breaks too?
         
+
+{-@ LIQUID "--compile-spec" @-}

@@ -90,3 +90,5 @@ getAdminContestParticipantEmailsR url = runLHandler $ do
                         #{allRegisteredEs}
                 |]
     
+
+{-@ LIQUID "--compile-spec" @-}

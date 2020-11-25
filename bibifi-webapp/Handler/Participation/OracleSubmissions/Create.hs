@@ -74,3 +74,5 @@ postParticipationOracleSubmissionCreateR tcId = runLHandler $
                 redirect $ ParticipationOracleSubmissionR tcId osId
         
         [whamlet|TODO|]
+
+{-@ LIQUID "--compile-spec" @-}

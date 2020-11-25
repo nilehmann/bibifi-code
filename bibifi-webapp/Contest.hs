@@ -177,3 +177,5 @@ contestTemplate contest page content =
                             #{contestName}
         ^{content'}
     |]
+
+{-@ LIQUID "--compile-spec" @-}

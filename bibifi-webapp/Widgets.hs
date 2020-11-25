@@ -290,3 +290,5 @@ buildSubmission (Entity bsId bs) cId public = do
               |]
             in
             ( row, button)
+
+{-@ LIQUID "--compile-spec" @-}

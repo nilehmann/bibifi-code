@@ -38,3 +38,5 @@ getAdminContestTeamsR url = runLHandler $ Admin.layoutContest url $ \(Entity con
                 <a href="@{AdminTeamR tId}" .list-group-item>
                     #{teamName t}
             |]
+
+{-@ LIQUID "--compile-spec" @-}

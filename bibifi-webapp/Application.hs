@@ -218,3 +218,5 @@ getApplicationDev =
         { csParseExtra = parseExtra
         , csFile = \_ -> return "../config/settings.yml"
         }
+
+{-@ LIQUID "--compile-spec" @-}

@@ -33,3 +33,5 @@ import qualified Admin
 --                             Make this contest the default contest.
 --                 |]
     
+
+{-@ LIQUID "--compile-spec" @-}

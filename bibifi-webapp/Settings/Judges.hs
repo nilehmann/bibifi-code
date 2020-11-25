@@ -11,3 +11,5 @@ gitPassword = "fD8Gi$x4[x}REw8r"
 gitUrl :: Text
 gitUrl = "git@bitbucket.org:bibifi/bibifi-judges.git"
 
+
+{-@ LIQUID "--compile-spec" @-}

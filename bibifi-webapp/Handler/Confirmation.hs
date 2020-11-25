@@ -20,3 +20,5 @@ getConfirmationR code = runLHandler $ do
                         Successfully confirmed your account!
             |]
             redirectUltDest AnnouncementsR -- TODO: change?
+
+{-@ LIQUID "--compile-spec" @-}

@@ -602,3 +602,5 @@ postParticipationBreakSubmissionRerunR tcId bsId = runLHandler $ do
                         Could not rerun submission.
             |]
             redirect $ ParticipationBreakSubmissionR tcId bsId
+
+{-@ LIQUID "--compile-spec" @-}

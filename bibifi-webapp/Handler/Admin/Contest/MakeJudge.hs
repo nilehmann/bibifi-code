@@ -82,3 +82,5 @@ postAdminContestMakeJudgeR url = runLHandler $ do
                 FormMissing ->
                     generateHtml Nothing widget enctype cE
 
+
+{-@ LIQUID "--compile-spec" @-}

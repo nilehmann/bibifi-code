@@ -59,3 +59,5 @@ postTeamAddMembersR tId = runLHandler $ Team.layout Team.AddMembers tId $ \uId (
     
 
 -- TODO: check permissions!!!
+
+{-@ LIQUID "--compile-spec" @-}

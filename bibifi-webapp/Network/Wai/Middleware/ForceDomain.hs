@@ -31,3 +31,5 @@ forceDomain checkDomain app req sendResponse =
         status
             | requestMethod req == methodGet = status301
             | otherwise = status307
+
+{-@ LIQUID "--compile-spec" @-}

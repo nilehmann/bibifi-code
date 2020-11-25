@@ -22,3 +22,5 @@ getParticipationBreakSubmissionDownloadR tcId bsId = runLHandler $ do
     where
         name = Text.pack $ show (keyToInt tcId) <> "-" <> show (keyToInt bsId) <> ".tar.gz"
         contentType = "application/gzip"
+
+{-@ LIQUID "--compile-spec" @-}

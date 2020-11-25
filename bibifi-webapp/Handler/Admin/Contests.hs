@@ -41,3 +41,5 @@ getAdminContestsR = runLHandler $ Admin.layout Admin.Contests $ do
                     ^{cs}
             |]
 
+
+{-@ LIQUID "--compile-spec" @-}

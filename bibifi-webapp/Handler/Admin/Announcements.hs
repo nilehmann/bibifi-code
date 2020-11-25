@@ -55,3 +55,5 @@ getAdminAnnouncementsR = runLHandler $ Admin.layout Admin.Announcements $ do
                     ^{cs}
             |]
 
+
+{-@ LIQUID "--compile-spec" @-}

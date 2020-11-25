@@ -185,3 +185,5 @@ layout page tId content =
                     ^{content'}
         |]
 
+
+{-@ LIQUID "--compile-spec" @-}

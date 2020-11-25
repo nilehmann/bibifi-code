@@ -35,3 +35,5 @@ getAdminUsersR = runLHandler $ Admin.layout Admin.Users $ do
                     ^{us}
             |]
 
+
+{-@ LIQUID "--compile-spec" @-}

@@ -83,3 +83,5 @@ postAdminUserSetAdminR uId = runLHandler $ Admin.layout Admin.Users $ do
 
     where
         errorHandler widget enctype = generateWidget widget enctype uId
+
+{-@ LIQUID "--compile-spec" @-}

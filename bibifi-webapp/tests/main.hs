@@ -21,3 +21,5 @@ main = do
     hspec $ do
         yesodSpec foundation $ do
             homeSpecs
+
+{-@ LIQUID "--compile-spec" @-}

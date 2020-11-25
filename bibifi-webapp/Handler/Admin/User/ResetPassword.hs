@@ -61,3 +61,5 @@ postAdminUserResetPasswordR uId = runLHandler $ Admin.layout Admin.Users $ do
                         redirect (AdminUserR uId)
                         
         
+
+{-@ LIQUID "--compile-spec" @-}

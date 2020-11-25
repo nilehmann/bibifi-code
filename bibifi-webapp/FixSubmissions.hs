@@ -13,3 +13,5 @@ module FixSubmissions where
 --     E.on ( tc E.^. TeamContestId E.==. fs E.^. FixSubmissionTeam)
 --     E.where_ ( tc E.^. TeamContestContest E.==. E.val cId)
 --     f tc fs
+
+{-@ LIQUID "--compile-spec" @-}

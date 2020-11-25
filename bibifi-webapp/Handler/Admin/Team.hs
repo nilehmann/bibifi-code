@@ -88,3 +88,5 @@ getAdminTeamR tId = runLHandler $ Admin.layout Admin.Teams $ do
                 <p><a href="@{AdminTeamAddMemberR tId}">Add team members</a>.
             |]
 
+
+{-@ LIQUID "--compile-spec" @-}

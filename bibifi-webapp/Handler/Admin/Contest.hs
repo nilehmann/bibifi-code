@@ -72,3 +72,5 @@ getAdminContestR url = runLHandler $ do
                             Award points for breaks in the oracle.
                 |]
     
+
+{-@ LIQUID "--compile-spec" @-}

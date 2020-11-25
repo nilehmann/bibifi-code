@@ -24,3 +24,5 @@ loop = do
 
 terminateDevel :: IO ()
 terminateDevel = exitSuccess
+
+{-@ LIQUID "--compile-spec" @-}

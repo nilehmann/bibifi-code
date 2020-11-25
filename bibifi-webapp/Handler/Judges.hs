@@ -148,3 +148,5 @@ getJudgesR contestUrl = runLHandler $ Judges.layout contestUrl $ \uId (Entity cI
                             Complete (Failed)
                     |]
 
+
+{-@ LIQUID "--compile-spec" @-}

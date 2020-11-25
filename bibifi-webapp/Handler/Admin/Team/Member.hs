@@ -160,3 +160,5 @@ runChecks teamId userId = do
         member <- runDB $ getBy404 $ UniqueTeamMember teamId userId
         return $ Right ( team, member)
 
+
+{-@ LIQUID "--compile-spec" @-}

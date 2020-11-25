@@ -114,3 +114,5 @@ postProfileAccountResumeR :: Handler Html
 postProfileAccountResumeR = runLHandler $ Profile.layout Profile.Account $ \uId -> do
     ((res, widget), enctype) <- handlerToWidget $ runFormPost $ resumeForm
     handleFormResult Resume (generateHtmlResume widget enctype) uId res
+
+{-@ LIQUID "--compile-spec" @-}

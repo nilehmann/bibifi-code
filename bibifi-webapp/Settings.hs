@@ -75,3 +75,5 @@ parseExtra _ o = Extra
     <$> o .:  "copyright"
     <*> o .:? "analytics"
 
+
+{-@ LIQUID "--compile-spec" @-}

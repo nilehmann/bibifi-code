@@ -185,3 +185,5 @@ postDeleteAnnouncementR = runLHandler $ do
                         Announcement deleted
                   |]
       redirect $ AdminAnnouncementsR
+
+{-@ LIQUID "--compile-spec" @-}

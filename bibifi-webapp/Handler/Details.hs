@@ -248,3 +248,5 @@ getDetailsR = runLHandler $ defaultLayout $ lLift $ do
 --                         Immediate family members and close personal friends. 
 --                     <li>
 --                         People with an established working relationship; this would include students who have done independent studies with the organizers or their research group and/or worked for them as research and/or teaching assistants.
+
+{-@ LIQUID "--compile-spec" @-}

@@ -68,3 +68,5 @@ postCreateTeamR = runLHandler $ do
         FormMissing ->
             generateHtml widget enctype []
     
+
+{-@ LIQUID "--compile-spec" @-}

@@ -302,3 +302,5 @@ getSplashR = runLHandler $
         winnersWidget
         sponsorWidget
         organizersWidget
+
+{-@ LIQUID "--compile-spec" @-}

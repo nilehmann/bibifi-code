@@ -351,3 +351,5 @@ data RerunFormData = RerunFormData ()
 
 rerunForm = identifyForm "rerun-fix-submission" $ renderBootstrap3 BootstrapBasicForm $ RerunFormData
     <$> pure ()
+
+{-@ LIQUID "--compile-spec" @-}

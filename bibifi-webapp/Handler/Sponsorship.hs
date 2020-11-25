@@ -23,3 +23,5 @@ getSponsorshipR = runLHandler $ defaultLayout $ lLift $ do
 --                     We are also looking for judges for the contest. 
 --                     See <a href="@{StaticR doc_judging_rules_pdf}">here</a> for details and responsibilities. 
 --                     Feel free to contact us at #{emailLink} if you'd like to learn more! 
+
+{-@ LIQUID "--compile-spec" @-}

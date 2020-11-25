@@ -4,3 +4,5 @@ import Import
 
 getProfileR :: Handler Html
 getProfileR = redirect ProfileAccountR
+
+{-@ LIQUID "--compile-spec" @-}

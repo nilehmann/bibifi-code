@@ -512,3 +512,5 @@ fall2016 = do
                     <strong>
                         No picture for third place breakers, team <em>c0dingRabbits</em>.
     |]
+
+{-@ LIQUID "--compile-spec" @-}

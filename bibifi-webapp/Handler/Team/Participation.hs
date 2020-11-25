@@ -29,3 +29,5 @@ getTeamParticipationR tId = runLHandler $ Team.layout Team.ContestParticipation 
                     ^{cs}
             |]
 
+
+{-@ LIQUID "--compile-spec" @-}

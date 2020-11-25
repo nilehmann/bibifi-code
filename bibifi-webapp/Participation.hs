@@ -109,3 +109,5 @@ layout page tcId content =
                 <div class="col-md-9">
                     ^{content'}
         |]
+
+{-@ LIQUID "--compile-spec" @-}

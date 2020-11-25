@@ -67,3 +67,5 @@ postAdminContestCreateR = runLHandler $ Admin.layout Admin.Contests $ do
         errorHandler form enctype msgM = do
             generateHtml form enctype msgM
 
+
+{-@ LIQUID "--compile-spec" @-}

@@ -12,3 +12,5 @@ main = defaultMain (fromArgs' parseExtra) makeApplication
             { csParseExtra = getExtra
             , csFile = \_ -> return "../config/settings.yml"
             }
+
+{-@ LIQUID "--compile-spec" @-}

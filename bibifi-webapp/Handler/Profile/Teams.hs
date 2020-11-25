@@ -50,3 +50,5 @@ getProfileTeamsR = runLHandler $ Profile.layout Profile.Teams $ \uId -> do
                 <ul class="list-group vertical-margin">
                     ^{ts}
             |]
+
+{-@ LIQUID "--compile-spec" @-}

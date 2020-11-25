@@ -57,3 +57,5 @@ postAdminContestTestsCreatePerformanceR url = runLHandler $ Admin.layoutContest 
             
             generateHtml url form enctype
 
+
+{-@ LIQUID "--compile-spec" @-}

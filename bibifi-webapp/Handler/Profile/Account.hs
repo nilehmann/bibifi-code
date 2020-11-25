@@ -170,3 +170,5 @@ getProfileAccountR = runLHandler $
         yesno (Just True) = "Yes" :: Text
         yesno (Just False) = "No"
         yesno Nothing = "N/A"
+
+{-@ LIQUID "--compile-spec" @-}
