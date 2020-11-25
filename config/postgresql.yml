@@ -1,9 +1,9 @@
 Default: &defaults
-  user: mc2contest
-  password: PASSWORD
-  host: HOST.COM
+  user: bibifi
+  password: bibifi
+  host: localhost
   port: 5432
-  database: mc2contest
+  database: bibifi
   poolsize: 10
 
 Development:

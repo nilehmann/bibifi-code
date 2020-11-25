@@ -12,17 +12,17 @@ import Coursera
 import Foundation.App
 import Control.Monad (foldM)
 
--- Check that none of the teams are registered for the contest. 
+-- Check that none of the teams are registered for the contest.
 -- !signup(t1) and !signup(t2) and ...
 -- !(signup(t1) or signup(t2) or ...)
 checkTeams :: ContestId -> [Entity Team] -> LHandler Bool
-checkTeams contestId = foldM (\acc team' -> do 
+checkTeams contestId = foldM (\acc team' -> do
         if acc then do
             (Entity teamId' _) <- return team'
             res <- runDB $ getBy $ UniqueTeamContest teamId' contestId
-            return $ case res of 
+            return $ case res of
                 -- Not signed up.
-                Nothing -> 
+                Nothing ->
                     True
                 -- Signed up.
                 Just _ ->
@@ -31,9 +31,9 @@ checkTeams contestId = foldM (\acc team' -> do
             return False
     ) True
 
--- Checks if a user can join a team. 
+-- Checks if a user can join a team.
 -- This is true as long as all of the user's other teams are not registered for the current contest.
--- For coursera contests, the user must also be enrolled in the course. 
+-- For coursera contests, the user must also be enrolled in the course.
 userCanJoinTeamForContest :: UserId -> TeamId -> ContestId -> LHandler (Either Text ())
 userCanJoinTeamForContest userId teamId contestId = do
     leaderTeams <- runDB $ selectList [TeamLeader ==. userId, TeamId !=. teamId] []
@@ -47,20 +47,20 @@ userCanJoinTeamForContest userId teamId contestId = do
         --         E.where_ (tm E.^. TeamMemberUser E.==. E.val userId E.&&. tm E.^. TeamMemberTeam E.!=. E.val teamId)
         --         return t
         --     mapM (\(v) -> return (v :: Entity Team)) res
-            
+
         -- select * from TeamMember, Team where TeamMember.User == userId && TeamMember.Team != teamId && TeamMember.Team == Team.Id
         -- E.select $ E.from $ \( m, t) -> do
-        --     E.where_ ( m E.^. TeamMemberUser E.==. E.val userId 
+        --     E.where_ ( m E.^. TeamMemberUser E.==. E.val userId
         --         E.&&. m E.^. TeamMemberTeam E.!=. E.val teamId
         --         E.&&. m E.^. TeamMemberTeam E.==. t E.^. TeamId)
         --     return t
         notOnTeam <- checkTeams contestId memberTeams
         if notOnTeam then do
-            -- Check if this is a Coursera contest. 
+            -- Check if this is a Coursera contest.
             status <- checkCourseraContest contestId userId
             case status of
                 CourseraStatusEnrolled -> do
-                    -- Check that team limit isn't reached. 
+                    -- Check that team limit isn't reached.
                     leaderCount <- runDB $ count [TeamId ==. teamId, TeamLeader !=. userId]
                     memberCount <- runDB $ count [TeamMemberTeam ==. teamId, TeamMemberUser !=. userId]
                     if leaderCount + memberCount >= teamLimit then
@@ -85,7 +85,7 @@ userCanJoinTeamForContest userId teamId contestId = do
 
         errorWithUserName err = do
             userM <- runDB $ get userId
-            return $ Left $ maybe ("User not found.") (\user -> 
+            return $ Left $ maybe ("User not found.") (\user ->
                 userIdent user `T.append` err) userM
 
 -- Check if a user is signed up for a contest.
@@ -96,16 +96,16 @@ userIsSignedupForContest userId contestId = do
     -- None of the leader teams are signed up.
     if res then do
         memberTeams <- runDB [lsql| select Team.* from TeamMember inner join Team on TeamMember.team == Team.id where TeamMember.user == #{userId}|]
-        
-        
+
+
         -- $ E.select $ E.from $ \( m, t) -> do
         --     -- select * from TeamMember, Team where TeamMember.User == userId && TeamMember.Team == Team.Id
-        --     E.where_ ( m E.^. TeamMemberUser E.==. E.val userId 
+        --     E.where_ ( m E.^. TeamMemberUser E.==. E.val userId
         --         E.&&. m E.^. TeamMemberTeam E.==. t E.^. TeamId)
         --     return t
         res' <- checkTeams contestId memberTeams
         return $ not res'
-    -- At least one of the leader teams is signed up for the contest. 
+    -- At least one of the leader teams is signed up for the contest.
     else
         return True
 
@@ -146,15 +146,15 @@ generatePageTitle contest page =
 isDefaultContest :: LHandler (Entity Contest -> Bool)
 isDefaultContest = do
     res <- getConfig DefaultContest
-    case res of 
+    case res of
         Nothing ->
             return $ \_ -> False
         Just def ->
             return $ \(Entity _ c) -> def == (contestUrl c)
 
 contestTemplate :: Maybe (Entity Contest) -> Text -> (Entity Contest -> LWidget) -> LWidget
-contestTemplate contest page content = 
-    let content' = case contest of 
+contestTemplate contest page content =
+    let content' = case contest of
           Nothing ->
               [whamlet|$newline never
 <div class="row">
@@ -172,9 +172,8 @@ contestTemplate contest page content =
             <div class="col-md-12">
                 <div class="page-header">
                     <h1>
-                        #{page} 
+                        #{page}
                         <small>
                             #{contestName}
         ^{content'}
     |]
-

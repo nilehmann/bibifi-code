@@ -43,7 +43,7 @@ showScoreboard c =
             img.loading {
                 margin: 10px 0px;
             }
-            
+
             .axis {
                 fill: #999;
             }
@@ -55,7 +55,7 @@ showScoreboard c =
                 shape-rendering: crispEdges;
                 z-index: 10;
             }
-            
+
             .line {
                 fill: none;
                 stroke: #e6550d;
@@ -71,7 +71,7 @@ showScoreboard c =
         --             display:none
         --         }
         --     |]
-            
+
         addScript $ StaticR js_d3_v3_min_js
         addScript $ StaticR js_bibifi_scoreboard_js
         [whamlet'|
@@ -95,7 +95,7 @@ showScoreboard c =
                             <p class="text-muted">
                                 Loading...
                     <p class="text-muted">
-                        Note: The scoreboard automatically refreshes every 30 seconds. Asterisks (*) indicate professional breaker teams. 
+                        Note: The scoreboard automatically refreshes every 30 seconds. Asterisks (*) indicate professional breaker teams.
         |]
         clickableDiv
         toWidget [julius|
@@ -104,7 +104,7 @@ showScoreboard c =
             });
         |]
 
-data Meta = Meta { 
+data Meta = Meta {
         start :: UTCTime,
         end :: UTCTime,
         teams :: [(TeamContestId, Text, Bool)]
@@ -116,8 +116,8 @@ data Scores = Scores {
     }
 
 instance ToJSON Meta where
-    toJSON (Meta start end' teams') = 
-      let printTeam acc ( tcId, name, prof) = 
+    toJSON (Meta start end' teams') =
+      let printTeam acc ( tcId, name, prof) =
             let n = keyToInt tcId in
             let k = T.pack $ show n in
             let v = object ["name" .= (toJSON name), "professional" .= (toJSON prof)] in
@@ -144,24 +144,24 @@ getScoresR cUrl = runLHandler $ do
     case res of
         Nothing ->
             returnJson $ object []
-        Just (Entity cId c) -> 
+        Just (Entity cId c) ->
             let end' = addUTCTime (60*30) (contestBreakEnd c) in
             do
             now <- getCurrentTime
-            teams <- if now > (contestBreakEnd c) then 
+            teams <- if now > (contestBreakEnd c) then
                     runDB [lsql| select TeamContest.id, Team.name, TeamContest.professional from Team inner join TeamContest on Team.id == TeamContest.team where TeamContest.contest == #{cId} and TeamContest.gitUrl != #{""}|]
                 else
                     runDB [lsql| select TeamContest.id, Team.name, TeamContest.professional from Team inner join TeamContest on Team.id == TeamContest.team where TeamContest.contest == #{cId} |]
 
             let meta' = Meta (contestBuildStart c) end' teams
-            
+
             -- builderScores' <- runDB [lsql| select TeamBuildScore.* from TeamBuildScore inner join TeamContest on TeamContest.id == TeamBuildScore.team where TeamContest.contest == #{cId} order by TeamBuildScore.timestamp asc|]
             -- let builderScores = fmap entityVal builderScores'
             builderScores <- fmap mconcat $ mapM (\(teamId, _, _) -> do
                     scores <- runDB [lsql| select TeamBuildScore.* from TeamBuildScore where TeamBuildScore.team == #{teamId} order by TeamBuildScore.id desc limit 1|]
                     return $ map entityVal scores
                 ) teams
-            
+
             -- breakerScores' <- runDB [lsql| select TeamBreakScore.* from TeamBreakScore inner join TeamContest on TeamContest.id == TeamBreakScore.team where TeamContest.contest == #{cId} order by TeamBreakScore.timestamp asc |]
             -- let breakerScores = fmap entityVal breakerScores'
             breakerScores <- fmap mconcat $ mapM (\(teamId, _, _) -> do
@@ -176,7 +176,7 @@ getScoresR cUrl = runLHandler $ do
 getScoreBreakdownR :: TeamContestId -> Handler Html
 getScoreBreakdownR tcId = runLHandler $ do
     tcM <- runDB $ pGet tcId
-    case tcM of 
+    case tcM of
         Nothing ->
             lLift $ notFound
         Just tc -> do
@@ -201,14 +201,14 @@ getScoreBreakdownR tcId = runLHandler $ do
                             <h2>
                                 Latest Build-it Submission
                         |]
-                    -- Get team's latest submission. 
+                    -- Get team's latest submission.
                     submissionM <- handlerToWidget $ runDB $ selectFirst [BuildSubmissionTeam ==. tcId] [Desc BuildSubmissionId] -- Desc BuildSubmissionTimestamp
                     case submissionM of
                         Nothing ->
                             [whamlet|
                                 <div class="row">
                                     <div class="col-md-12">
-                                        This team has not made any build-it submissions. 
+                                        This team has not made any build-it submissions.
                             |]
                         Just submission ->
                             Widgets.buildSubmission submission cId True

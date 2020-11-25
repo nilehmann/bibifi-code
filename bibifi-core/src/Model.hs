@@ -1,4 +1,8 @@
 {-# LANGUAGE FunctionalDependencies, FlexibleInstances, TypeSynonymInstances #-}
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE UndecidableInstances #-}
+
 
 module Model where
 
@@ -126,7 +130,7 @@ instance ToJSON ByteString where
     toJSON = Aeson.String . Text.decodeUtf8 . B64.encode
 
 instance FromJSON ByteString where
-    parseJSON = Aeson.withText "ByteString" $ either (fail "Not base 64 encoded.") return . B64.decode . Text.encodeUtf8
+    parseJSON = Aeson.withText "ByteString" $ either (\_ -> fail "Not base 64 encoded.") return . B64.decode . Text.encodeUtf8
 
 instance ToJSON (Entity TeamBuildScore) where
     toJSON e = Aeson.object ["key" .= fromSqlKey ( entityKey e), "value" .= entityVal e]

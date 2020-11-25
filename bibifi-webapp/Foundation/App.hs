@@ -61,7 +61,7 @@ mkMessage "App" "messages" "en"
 mkYesodData "App" $(parseRoutesFile "../config/routes")
 
 --
--- Noninterference stuff. 
+-- Noninterference stuff.
 --
 
 type LHandler = LMonadT (DCLabel Principal) Handler
@@ -69,7 +69,7 @@ type LHandler = LMonadT (DCLabel Principal) Handler
 instance LMonad Handler where
     lFail = permissionDenied "Sorry, you do not have permission to view this page."
     lAllowLift = return True
-    
+
 type LWidget = LMonadT (DCLabel Principal) (Yesod.WidgetT App IO) ()
 
 instance LMonad (Yesod.WidgetT App IO) where
@@ -90,6 +90,5 @@ instance Yesod.YesodPersistRunner App where
     getDBRunner = Yesod.defaultGetDBRunner connPool
 
 --
--- End noninterference stuff. 
+-- End noninterference stuff.
 --
-

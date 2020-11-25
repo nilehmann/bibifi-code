@@ -35,4 +35,3 @@ getAdminUserR uId = runLHandler $ Admin.layout Admin.Users $ do
                 <a href="@{AdminUserSetAdminR uId}">
                     Grant or revoke admin privileges
             |]
-    

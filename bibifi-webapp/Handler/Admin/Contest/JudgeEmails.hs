@@ -11,7 +11,7 @@ getAdminContestJudgeEmailsR :: Text -> Handler Html
 getAdminContestJudgeEmailsR url = runLHandler $ do
     res <- retrieveContest $ Just url
     Admin.layout Admin.Contests $ do
-        case res of 
+        case res of
             Nothing ->
                 Admin.contestNotFound
             Just (Entity cId c) -> do
@@ -45,7 +45,7 @@ getAdminContestJudgeEmailsR url = runLHandler $ do
                                 Just u ->
                                     return $ userEmail u
                         ) profs
-                    return $ case emails of 
+                    return $ case emails of
                         [] ->
                             "No professional team members"
                         _ ->
