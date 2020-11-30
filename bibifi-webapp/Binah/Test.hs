@@ -7,9 +7,13 @@ import Binah.Model
 import Binah.Core
 import Binah.Infrastructure
 
-{-@ ok :: TaggedT<{\_ -> True}, {\_ -> False}> _ _ _ @-}
-ok :: Monad m => TaggedT (Entity User) m Bool
-ok = return True
+{-@ ok1 :: TaggedT<{\_ -> True}, {\_ -> False}> _ _ _ @-}
+ok1 :: Monad m => TaggedT (Entity User) m Bool
+ok1 = return True
+
+{-@ ok2 :: TaggedT<{\_ -> True}, {\_ -> False}> _ _ _ @-}
+ok2 :: TaggedT user Handler Bool
+ok2 = return True
 
 {-@ err :: TaggedT<{\_ -> True}, {\_ -> False}> _ _ _ @-}
 err :: TaggedT (Entity User) Handler Bool
