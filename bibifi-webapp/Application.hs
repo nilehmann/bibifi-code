@@ -153,7 +153,7 @@ makeApplication conf = do
     let app = if development then
             app'
           else
-            forceDomain (\d' -> 
+            forceDomain (\d' ->
                 let d = BSC.takeWhile (/= ':') d' in
                 if d /= domainName then Just domainName else Nothing
               ) app'
@@ -169,9 +169,9 @@ makeFoundation conf = do
               Database.Persist.loadConfig >>=
               Database.Persist.applyEnv
     p <- Database.Persist.createPoolConfig (dbconf :: Settings.PersistConf)
-    
+
     --logger <- mkLogger True stdout
-    
+
     loggerSet' <- newStdoutLoggerSet defaultBufSize
     (getter, updater) <- clockDateCacher
 
@@ -219,4 +219,4 @@ getApplicationDev =
         , csFile = \_ -> return "../config/settings.yml"
         }
 
-{-@ LIQUID "--compile-spec" @-}
+{-@ LIQUID "--ignore-module" @-}

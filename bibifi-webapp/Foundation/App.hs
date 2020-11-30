@@ -7,13 +7,12 @@ import Data.Text (Text)
 import qualified Database.Persist
 import LMonad
 import LMonad.Label.DisjunctionCategory
-import LMonad.Yesod
+import LMonad.Yesod ()
 import Model
 import Network.HTTP.Conduit (Manager)
 import Prelude
 import qualified Settings
 import Settings (Extra (..))
-import Text.Shakespeare.I18N
 import qualified Yesod
 import Yesod.Auth
 import Yesod.Core
@@ -93,4 +92,4 @@ instance Yesod.YesodPersistRunner App where
 -- End noninterference stuff.
 --
 
-{-@ LIQUID "--compile-spec" @-}
+{-@ LIQUID "--ignore-module" @-}

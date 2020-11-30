@@ -130,14 +130,17 @@ library
                      Test
                      Forms.Survey
                      Yesod.Auth.OAuth2.Coursera
+                     Binah.Foundation.App
+                     Binah.Model
+                     Binah.Contest
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
         ghc-options:   -Wall -O0 -fno-warn-name-shadowing -fplugin=LiquidHaskell
-        --ghc-options:   -Wall -O0 -fno-warn-name-shadowing
+        -- ghc-options:   -Wall -O0 -fno-warn-name-shadowing
     else
         ghc-options:   -Wall -O2 -fno-warn-name-shadowing -fplugin=LiquidHaskell
-        --ghc-options:   -Wall -O0 -fno-warn-name-shadowing
+        -- ghc-options:   -Wall -O0 -fno-warn-name-shadowing
 
     extensions: TemplateHaskell
                 QuasiQuotes
@@ -165,57 +168,57 @@ library
                   -- base                          >= 4          && < 5
                  , liquid-base
                  , liquidhaskell
---                 , yesod-platform              
-                 , yesod                         
-                 , yesod-core                    
-                 , yesod-auth                    
-                 , yesod-auth-hashdb             
-                 , yesod-static                  
+--                 , yesod-platform
+                 , yesod
+                 , yesod-core
+                 , yesod-auth
+                 , yesod-auth-hashdb
+                 , yesod-static
                  , yesod-form                    >= 1.4.10
                  , vector
-                 , bytestring                     
+                 , bytestring
                  , data-textual
                  , gitlab-haskell
-                 , network                       
+                 , network
                  , network-ip
                  , network-uri
-                 , persistent                    
-                 , persistent-ratelimit          
-                 , persistent-postgresql         
-                 , persistent-template          
+                 , persistent
+                 , persistent-ratelimit
+                 , persistent-postgresql
+                 , persistent-template
                  , template-haskell
-                 , text                          
+                 , text
                  , transformers
                  , enclosed-exceptions
---                  , hamlet                        
-                 , hashable                      
-                 , hashmap                       
+--                  , hamlet
+                 , hashable
+                 , hashmap
                  , http-client
-                 , shakespeare                   
---                 , shakespeare-css             
---                 , shakespeare-js              
---                 , shakespeare-text            
-                 , hjsmin                        
-                 , monad-control                 
+                 , shakespeare
+--                 , shakespeare-css
+--                 , shakespeare-js
+--                 , shakespeare-text
+                 , hjsmin
+                 , monad-control
                  , mtl
-                 , wai                           
-                 , wai-extra                     
-                 , yaml                          
-                 , http-conduit                  
-                 , directory                     
-                 , warp                          
+                 , wai
+                 , wai-extra
+                 , yaml
+                 , http-conduit
+                 , directory
+                 , warp
                  , data-default
-                 , filepath                      
+                 , filepath
                  , aeson
                  , aeson-pretty
-                 , conduit                       
-                 , conduit-extra                 
-                 , monad-logger                  
-                 , resourcet                     
-                 , fast-logger                   
+                 , conduit
+                 , conduit-extra
+                 , monad-logger
+                 , resourcet
+                 , fast-logger
                  , time
                  , old-locale
-                 , wai-logger                    
+                 , wai-logger
                  , MonadRandom
                  , esqueleto
                  , blaze-markup

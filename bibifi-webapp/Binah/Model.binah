@@ -1,0 +1,50 @@
+import Prelude
+import Data.Text (Text)
+import Data.Time (UTCTime) -- default=now() AT TIME ZONE ‘UTC’
+import Data.ByteString (ByteString)
+import Core.Git
+
+User
+  ident Text
+  password Text
+  salt Text
+  email Text
+  created UTCTime
+  admin Bool -- default=false
+  consentForm StoredFileId Maybe -- default=null
+  resume StoredFileId Maybe -- default=null
+  UniqueUser ident
+  UniqueEmail email
+  -- deriving Typeable
+
+Contest
+  url Text
+  title Text
+  buildStart UTCTime
+  buildEnd UTCTime
+  breakFixStart UTCTime
+  breakEnd UTCTime
+  fixEnd UTCTime
+  UniqueContest url
+
+Team
+  name Text
+  leader UserId
+  UniqueTeam name
+  -- deriving Eq Ord
+
+TeamContest
+  team TeamId
+  contest ContestId
+  gitUrl Text -- default=''
+  languages Text -- default=''
+  professional Bool -- default=false
+  githookNonce Text
+  gitRepositoryIdentifier RepositoryIdentifier Maybe
+  UniqueTeamContest team contest
+
+StoredFile
+  owner UserId
+  name Text
+  contentType Text
+  content ByteString
