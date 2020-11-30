@@ -2,7 +2,9 @@ import Prelude
 import Data.Text (Text)
 import Data.Time (UTCTime) -- default=now() AT TIME ZONE ‘UTC’
 import Data.ByteString (ByteString)
+import Yesod (Textarea, Html)
 import Core.Git
+import PostDependencyType
 
 User
   ident Text
@@ -15,7 +17,74 @@ User
   resume StoredFileId Maybe -- default=null
   UniqueUser ident
   UniqueEmail email
+
+  update [ident, password, salt, email, created, admin, consentForm, resume]
+         {\_ _ _ -> False}
   -- deriving Typeable
+
+CourseraUser
+  courseraId Text
+  user UserId
+  token Text
+  UniqueCourseraId courseraId
+  UniqueCourseraUser user
+
+  update [courseraId, user, token]
+         {\_ _ _ -> False}
+
+UserInformation
+    user UserId
+    school Text Maybe
+    major Text Maybe
+    minor Text Maybe
+    degreesHeld Text
+    degree Text
+    yearsInProgram Int Maybe
+    yearsOfExperience Int Maybe
+    languages Text Maybe
+    favoriteLanguages Text Maybe
+    yearsOfWork Int Maybe
+    experienceClass Bool Maybe
+    experiencePersonal Bool Maybe
+    experienceInternship Bool Maybe
+    experienceJob Bool Maybe
+    securityTraining Bool Maybe
+    securityExperience Bool Maybe
+    softwareEngineering Bool Maybe
+    securityClass Bool Maybe
+    previousContest Bool Maybe
+    resumePermission Bool -- default=false
+    age Int Maybe -- default=0
+    nationality Text Maybe -- default=''
+    gender Text Maybe -- default=''
+    agreeToParticipate Bool -- default=true
+    graduationYear Int Maybe -- default=-1
+    programmerRating Int Maybe -- default=-1
+    attackerRating Int Maybe -- default=-1
+    language Text Maybe
+    timezone Text Maybe
+    UniqueUserInformation user
+    -- deriving Eq Ord
+
+    insert {\info viewer -> userInformationUser info == entityKey viewer}
+
+    update [ school, major, minor, degreesHeld, degree, yearsInProgram, yearsOfExperience
+           , languages, favoriteLanguages, yearsOfWork, experienceClass, experiencePersonal
+           , experienceIntership, experienceJob, securityTraining, securityExperience
+           , softwareEngineering, securityClass, previousContest, resumePermission, age
+           , nationality, gender, agreeToParticipate, graduationYear, programmerRating
+           , attackerRating, language, timezone, user
+           ]
+           {\_ _ _ -> False}
+
+    read [ school, major, minor, degreesHeld, degree, yearsInProgram, yearsOfExperience
+         , languages, favoriteLanguages, yearsOfWork, experienceClass, experiencePersonal
+         , experienceIntership, experienceJob, securityTraining, securityExperience
+         , softwareEngineering, securityClass, previousContest, resumePermission, age
+         , nationality, gender, agreeToParticipate, graduationYear, programmerRating
+         , attackerRating, language, timezone
+         ]
+         {\info viewer -> userInformationUser info == entityKey viewer || userAdmin viewer}
 
 Contest
   url Text
@@ -27,11 +96,114 @@ Contest
   fixEnd UTCTime
   UniqueContest url
 
+  update [ url, title, buildStart, buildEnd, breakFixStart, breakEnd, fixEnd ]
+         {\_ _ _ -> False}
+
+CourseraContest        -- Absence of this row means a contest isn't a coursera one.
+  contest ContestId
+  courseId Int -- Course id
+  sessionId Int -- Session id
+  UniqueCourseraContest contest
+
+  update [ url, title, buildStart, buildEnd, breakFixStart, breakEnd, fixEnd ]
+         {\_ _ _ -> False}
+
+Post
+  title Text
+  contest ContestId
+  timestamp UTCTime -- default=now() AT TIME ZONE ‘UTC’
+  draft Bool
+  content Html
+  markdown Text
+
+  insert {\post viewer -> userAdmin viewer}
+  update [ contest, timestamp, draft ] {\_ _ _ -> False}
+  update [ title, content, markdown ]  {\_ _ viewer -> userAdmin viewer}
+
+PostDependency
+  contest ContestId
+  post PostId
+  dependency PostDependencyType
+
+  update [contest, post, dependency]
+         {\_ _ _ -> False}
+
+Judge
+  judge UserId
+  contest ContestId
+  assignedCount Int -- default=0
+  UniqueContestJudge judge contest
+
+  update [judge, contest, assignedCount]
+         {\_ _ _ -> False}
+
+JudgeConflict
+  judge JudgeId
+  team TeamContestId
+  UniqueJudgeConflict judge team
+
+  update [judge, team]
+         {\_ _ _ -> False}
+
+BuildJudgement
+  judge JudgeId
+  submission BuildSubmissionId
+  ruling Bool Maybe
+  comments Text Maybe
+  UniqueBuildJudgement submission
+
+  insert {\_ viewer -> userAdmin viewer}
+  update [ judge, submission ] {\_ _ _ -> False}
+  update [ ruling, comments ]
+         {\row _ viewer ->
+           userAdmin viewer ||
+           judgeJudge (getJust (buildJudgementJudge row)) == entityKey viewer
+         }
+
+BreakJudgement
+  judge JudgeId
+  submission BreakSubmissionId
+  ruling Bool Maybe
+  comments Text Maybe
+  UniqueBreakJudgement submission
+
+  insert {\_ viewer -> userAdmin viewer}
+  update [ judge, submission ] {\_ _ _ -> False}
+  update [ ruling, comments ]
+         {\row _ viewer ->
+           userAdmin viewer ||
+           judgeJudge (getJust (breakJudgementJudge row)) == entityKey viewer
+         }
+
+FixJudgement
+  judge JudgeId
+  submission FixSubmissionId
+  ruling Bool Maybe
+  comments Text Maybe
+  UniqueFixJudgement submission
+
+  insert {\_ viewer -> userAdmin viewer}
+  update [ judge, submission ] {\_ _ _ -> False}
+  update [ ruling, comments ]
+         {\row _ viewer ->
+           userAdmin viewer ||
+           judgeJudge (getJust (fixJudgementJudge row)) == entityKey viewer
+         }
+
+BreakDispute
+  break BreakSubmissionId
+  justification Text
+  UniqueBreakDispute break
+
+  update [ break, justification ] {\_ _ _ -> False}
+
 Team
   name Text
   leader UserId
   UniqueTeam name
   -- deriving Eq Ord
+
+  update [ name, leader ] {\_ _ _ -> False}
 
 TeamContest
   team TeamId
@@ -43,8 +215,291 @@ TeamContest
   gitRepositoryIdentifier RepositoryIdentifier Maybe
   UniqueTeamContest team contest
 
+  update [ team, contest, gitUrl, languages, professional, githookNonce
+         , gitRepositoryIdentifier
+         ]
+         {\_ _ _ -> False}
+
+TeamMember
+  team TeamId
+  user UserId
+  UniqueTeamMember team user
+
+  update [ team, member ] {\_ _ _ -> False}
+
+TeamInvite
+  invite Text
+  team TeamId
+  email Text
+  UniqueTeamInvite invite
+
+  update [ invite, team, email ] {\_ _ _ -> False}
+
+PasswordResetInvite
+  account UserId
+  invite Text
+  expiration UTCTime
+  UniquePasswordResetInvite invite
+
+  insert {\_ viewer -> userAdmin viewer}
+  update [ account, invite, expiration ] {\_ _ _ -> False}
+
+ContestCoreTest
+  contest ContestId
+  name Text
+  inputFile Text
+  outputFile Text
+  testScript Text
+  -- deriving Show Eq
+
+  update [ contest, name, inputFile, outputFile, testScript ] {\_ _ _ -> False}
+
+ContestPerformanceTest
+  contest ContestId
+  name Text
+  inputFile Text
+  outputFile Text
+  testScript Text
+  optional Bool -- default=FALSE
+  -- deriving Show Eq
+
+  update [ contest, name, inputFile, outputFile, testScript, optional ] {\_ _ _ -> False}
+
+ContestOptionalTest
+  contest ContestId
+  name Text
+  inputFile Text
+  outputFile Text
+  testScript Text
+  -- deriving Show Eq
+
+  update [ contest, name, inputFile, outputFile, testScript ] {\_ _ _ -> False}
+
+TeamBreakScore
+  team TeamContestId
+  buildScore Double Maybe -- default=0.0
+  breakScore Double Maybe
+  fixScore Double Maybe
+  timestamp UTCTime
+
+  update [ team, buildScore, breakScore, fixScore, timestamp ] {\_ _ _ -> False}
+
+TeamBuildScore
+  team TeamContestId
+  buildScore Double Maybe -- Nothing means not qualified
+  breakScore Double Maybe
+  fixScore Double Maybe
+  timestamp UTCTime
+
+  update [ team, buildScore, breakScore, fixScore, timestamp ] {\_ _ _ -> False}
+
+OracleSubmission
+  team TeamContestId
+  timestamp UTCTime
+  name Text
+  input Text
+  output Text Maybe
+  status OracleSubmissionStatus
+  -- deriving Eq
+
+  update [ team, timestamp, name, input, output, status ] {\_ _ _ -> False}
+
+BuildSubmission
+  team TeamContestId
+  timestamp UTCTime
+  commitHash Text
+  status BuildSubmissionStatus
+  stdout Textarea Maybe -- default=null
+  stderr Textarea Maybe -- default=null
+
+  update [ team, timestamp, commitHash, status, stdout, stderr ] {\_ _ _ -> False}
+
+BreakOracleSubmission
+  team TeamContestId
+  timestamp UTCTime
+  description Text
+  valid Bool
+
+  insert {\_ viewer -> userAdmin viewer}
+  update [ team, timestamp, description ] {\_ _ viewer -> userAdmin viewer}
+
+BreakSubmission
+  team TeamContestId
+  targetTeam TeamContestId Maybe
+  timestamp UTCTime
+  commitHash Text
+  name Text -- default=''
+  status BreakSubmissionStatus
+  breakType BreakType Maybe
+  message String Maybe
+  json Text Maybe -- default=null
+  stdout Textarea Maybe -- default=null
+  stderr Textarea Maybe -- default=null
+  valid Bool Maybe -- If this break submission is valid/accepted. It should be marked as valid as long as the first run demonstrates a successful break.
+  withdrawn Bool -- default=FALSE
+
+  update [ team, targetTeam, timestamp, commitHash, name, status, breakType, message
+         , json, stdout, stderr, valid, withdrawn
+         ]
+         {\_ _ _ -> False}
+
+BreakFixSubmission
+  break BreakSubmissionId
+  fix FixSubmissionId Maybe -- If this is Nothing, this run is against the latest build submission.
+  result BreakSubmissionResult -- Maybe
+
+  update [ break, fix, result ] {\_ _ _ -> False}
+
+FixSubmission
+  team TeamContestId
+  timestamp UTCTime
+  commitHash Text
+  status FixSubmissionStatus
+  result FixSubmissionResult Maybe
+  message String Maybe
+  stdout Textarea Maybe -- default=null
+  stderr Textarea Maybe -- default=null
+
+  update [ team, timestamp, commitHash, status, result, message, stdout, stderr ]
+         {\_ _ _ -> False}
+
+BreakSubmissionFile
+  break BreakSubmissionId
+  file ByteString
+  UniqueBreakSubmissionFile break
+
+  update [ break, file ] {\_ _ _ -> False}
+
+BuildSubmissionFile
+  team TeamContestId
+  file ByteString
+  UniqueBuildSubmissionFile team
+
+  update [ team, file ] {\_ _ _ -> False}
+
+FixSubmissionFile
+  fix FixSubmissionId
+  file ByteString
+  UniqueFixSubmissionFile fix
+
+  update [ fix, file ] {\_ _ _ -> False}
+
+BuildCoreResult
+  submission BuildSubmissionId
+  test ContestCoreTestId
+  pass Bool
+  message Text Maybe
+  UniqueBuildCoreSubmission submission test
+  -- deriving Show Eq
+
+  update [ submission, test, pass, message ] {\_ _ _ -> False}
+
+BuildPerformanceResult
+  submission BuildSubmissionId
+  test ContestPerformanceTestId
+  time Double Maybe -- pass is implicitly false when Nothing
+  message Text Maybe
+  UniqueBuildPerformanceSubmission submission test
+  -- deriving Show Eq
+  update [ submission, test, time, message ] {\_ _ _ -> False}
+
+BuildOptionalResult
+  submission BuildSubmissionId
+  test ContestOptionalTestId
+  pass Bool
+  message Text Maybe
+  UniqueBuildOptionalSubmission submission test
+  -- deriving Show Eq
+
+  update [ submission, test, pass, message ] {\_ _ _ -> False}
+
+FixCoreResult
+  submission FixSubmissionId
+  test ContestCoreTestId
+  pass Bool
+  message Text Maybe
+  UniqueFixCoreSubmission submission test
+  -- deriving Show Eq
+
+  update [ submission, test, pass, message ] {\_ _ _ -> False}
+
+FixPerformanceResult
+  submission FixSubmissionId
+  test ContestPerformanceTestId
+  time Double Maybe -- pass is implicitly false when Nothing
+  message Text Maybe
+  UniqueFixPerformanceSubmission submission test
+  -- deriving Show Eq
+
+  update [ submission, test, time, message ] {\_ _ _ -> False}
+
+FixOptionalResult
+  submission FixSubmissionId
+  test ContestOptionalTestId
+  pass Bool
+  message Text Maybe
+  UniqueFixOptionalSubmission submission test
+  -- deriving Show Eq
+
+  update [ submission, test, pass, message ] {\_ _ _ -> False}
+
+Configuration
+  key Text
+  value Text
+  UniqueKey key
+
+  insert {\_ viewer -> userAdmin viewer}
+  update [ key, value ] {\_ _ viewer -> userAdmin viewer}
+
+CacheExpiration
+  key Text
+  expiration UTCTime -- default=now() AT TIME ZONE ‘UTC’
+  UniqueCache key
+
+  update [ key, expiration ] {\_ _ _ -> False}
+
+CacheBuildersCode
+  team Text
+  teamId TeamContestId
+  languages Text -- default=''
+  contestId ContestId
+  builderScore Double
+  bugsFound Int
+  vulnerabilitiesFound Int
+
+  UniqueCacheBuilderCodeTeam teamId
+
+  update [ team, teamId, languages, contestId, builderScore, bugsFound
+         , vulnerabilitiesFound
+         ]
+         {\_ _ _ -> False}
+
 StoredFile
   owner UserId
   name Text
   contentType Text
   content ByteString
+
+  update [ owner, name, contentType, content ] {\_ _ _ -> False}
+
+Error
+  handlerName Text
+  errorText Text
+  time UTCTime -- default=now() AT TIME ZONE 'UTC'
+
+  update [ handlerName, errorText, time ] {\_ _ _ -> False}
+
+RateLimitLog
+  action Int
+  limiter Int
+  time UTCTime -- default=now() AT TIME ZONE 'UTC'
+
+  update [ action, limiter, time ] {\_ _ _ -> False}
+
+-- If one of these exists for a contest, a score request is pending.
+ScorePending
+  contest ContestId
+  round ContestRound
+  UniqueScorePending contest round
+
+  update [ contest, round ] {\_ _ _ -> False}

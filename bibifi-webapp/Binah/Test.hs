@@ -3,7 +3,7 @@ module Binah.Test where
 import Prelude
 import Foundation.App (Handler)
 
-import Binah.Model
+import Binah.Model (User)
 import Binah.Core
 import Binah.Infrastructure
 
