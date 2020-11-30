@@ -132,7 +132,7 @@ library
                      Yesod.Auth.OAuth2.Coursera
                      Binah.Foundation.App
                      Binah.Model
-                     Binah.Contest
+                     Binah.Test
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
@@ -233,8 +233,8 @@ library
                  , transformers
                  , wai-extra
                  , yesod-static
-                 , markdown
                  , bibifi-core
+                 , markdown
 
                  , http-types
                  , aeson
