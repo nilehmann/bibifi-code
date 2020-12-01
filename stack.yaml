@@ -57,7 +57,7 @@ extra-deps:
   commit: 1a338910fa77a0b8d7ccf2230e2a014f71abb47c
 
 - github: ucsd-progsys/liquidhaskell
-  commit: 388f3776f82a4e2f69ebe48f8ecc3b9b2438f759
+  commit: 776d63208b79e7ca2cce037c78cd025c23918701
   subdirs:
       - .
       - liquid-base

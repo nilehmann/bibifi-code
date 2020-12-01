@@ -30,15 +30,4 @@ instance MonadHandler m => MonadHandler (TaggedT user m) where
 instance MonadTIO Handler where
   liftTIO ma = liftIO $ runTIO ma
 
-type H = Handler
-
--- instance Functor H where
---   fmap = undefined
-
--- instance Applicative H where
---   pure = undefined
-
--- instance Monad H where
---   (>>=) = undefined
-
 {-@ LIQUID "--compile-spec" @-}

@@ -1,16 +1,20 @@
 module Binah.Test where
 
 import Prelude
-import Foundation.App (Handler)
+import Foundation.App (Handler, App)
+import Database.Persist.Sql (SqlBackend)
+import Control.Monad.Reader (ReaderT)
+import qualified Yesod
 
 import Binah.Model (User)
 import Binah.Core
 import Binah.Infrastructure
 
--- I get a liquid type mismatch if I put TaggedT on top of Handler
-{-@ err :: TaggedT<{\_ -> True}, {\_ -> False}> _ _ _ @-}
-err :: TaggedT (Entity User) Handler Bool
-err = return True
+-- This is now fixed
+{-@ ok0 :: TaggedT<{\_ -> True}, {\_ -> False}> _ _ _ @-}
+ok0 :: TaggedT (Entity User) Handler Bool
+ok0 = return True
+
 
 -- Putting TaggedT on top of generic monad works
 {-@ ok1 :: TaggedT<{\_ -> True}, {\_ -> False}> _ _ _ @-}
@@ -43,3 +47,5 @@ ok3 = return True
 {-@ ok4 :: TaggedT<{\_ -> True}, {\_ -> False}> _ _ _ @-}
 ok4 :: TaggedT (Entity User) Handler Bool
 ok4 = returnTagged True
+
+{-@ LIQUID "--no-pattern-inline" @-}

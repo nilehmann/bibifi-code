@@ -132,7 +132,7 @@ library
                      Yesod.Auth.OAuth2.Coursera
                      Binah.Foundation.App
                      Binah.Model
-                     Binah.Test
+                     Binah.Contest
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

@@ -5,7 +5,8 @@ import Foundation.App (App, Handler)
 import qualified Foundation.App as App
 import Binah.Model
 import Binah.Core
-import Binah.Foundation.App (THandler, H)
+import Binah.Foundation.App (THandler)
+import Database.Persist.Sql (SqlBackend)
 import Binah.Actions
 import Binah.Filters
 import Binah.Infrastructure
@@ -21,9 +22,8 @@ assume runDB :: forall <p:: user -> Bool, q :: user -> Bool>.
                TaggedT<p, q> user _ _ -> TaggedT<p, q> user _ _
 @-}
 runDB ::
-  (Yesod.MonadHandler m, Yesod.MonadUnliftIO m, Yesod.HandlerSite m ~ App) =>
-  (TaggedT user (ReaderT (Yesod.YesodPersistBackend App) m)) a
-  -> TaggedT user m a
+  (TaggedT user (ReaderT SqlBackend Handler)) a
+  -> TaggedT user Handler a
 runDB f = do
   app <- liftT $ Yesod.getYesod
   liftT $ Persist.runPool
@@ -42,7 +42,6 @@ foldT = foldM
 
 {-@ checkTeams :: _ -> _ -> TaggedT<{\_ -> True}, {\_ -> False}> _ _ _ @-}
 checkTeams :: ContestId -> [Entity Team] -> THandler Bool
-checkTeams contestId _ = returnTagged True
 checkTeams contestId = foldT (\acc team -> do
         if acc then do
             teamId <- project teamId' team
